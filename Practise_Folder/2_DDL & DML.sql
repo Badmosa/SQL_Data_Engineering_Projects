@@ -72,7 +72,8 @@ ORDER BY job_count DESC;
 CREATE TEMPORARY TABLE senior_jobs_flat_temp AS
 SELECT *
 FROM staging.priority_jobs_flat_view
-WHERE job_title_short = 'Senior Data Engineer';
+WHERE job_title_short = 'Senior Data Engineer'
+LIMIT 10;
 
 
 SELECT 
@@ -81,3 +82,21 @@ SELECT
 FROM senior_jobs_flat_temp
 GROUP BY job_title_short
 ORDER BY job_count DESC;
+
+--DELETE--
+SELECT COUNT(*) FROM staging.job_postings_flat;
+SELECT COUNT(*) FROM staging.priority_jobs_flat_view;
+SELECT COUNT(*) FROM senior_jobs_flat_temp;
+
+DELETE FROM staging.job_postings_flat
+WHERE job_posted_date < '2024-01-01';
+
+SELECT COUNT(*) FROM staging.job_postings_flat;
+SELECT COUNT(*) FROM staging.priority_jobs_flat_view;
+SELECT COUNT(*) FROM senior_jobs_flat_temp;
+
+--TRUNCATE--
+TRUNCATE TABLE staging.job_postings_flat;
+
+SELECT *
+FROM staging.job_postings_flat;
