@@ -182,4 +182,52 @@ FROM (
 GROUP BY job_title_short
 LIMIT 10;
 
--- KEEP ONLY TITLES WHOS MEDIAN SALARY IS AVOVE THE OVERALL MEDIAN:
+-- KEEP ONLY TITLES WHOS MEDIAN SALARY IS AVOVE THE OVERALL MEDIAN: HAVING
+SELECT
+    job_title_short,
+    MEDIAN(salary_year_avg) AS median_salary,
+    (
+        SELECT MEDIAN(salary_year_avg)
+        FROM job_postings_fact
+        WHERE job_work_from_home = TRUE
+    )   AS market_remote_median_salary
+FROM (
+    SELECT
+        job_title_short,
+        salary_year_avg
+    FROM job_postings_fact
+    WHERE job_work_from_home = TRUE
+    ) AS clean_jobs
+GROUP BY job_title_short
+HAVING MEDIAN(salary_year_avg) > (
+    SELECT MEDIAN(salary_year_avg)
+    FROM job_postings_fact
+    WHERE job_work_from_home = TRUE
+)
+LIMIT 10;
+
+---CTEs(Coment Tables Expressions)--
+-- Example:
+--compare hoe much (or less) remote roles pay compared to onsite roles for each job title.
+--Use a CTe to calculate the median salary by title and work arrangement, than compare those medians.
+WITH title_median AS (
+    SELECT
+        job_title_short,
+        job_work_from_home,
+        MEDIAN(salary_year_avg):: INT AS median_salary
+    FROM job_postings_fact
+    WHERE job_country = 'Nigeria'
+    GROUP BY
+        job_title_short,
+        job_work_from_home
+)
+
+SELECT
+    r.job_title_short,
+    r.median_salary AS remote_median_salary,
+    O.median_salary AS onsite_median_salary
+FROM title_median AS r
+INNER JOIN title_median AS O
+    ON r.job_title_short = O.job_title_short
+WHERE r.job_work_from_home  = TRUE
+    AND O.job_work_from_home = FALSE;
