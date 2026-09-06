@@ -129,3 +129,11 @@ SELECT COUNT(*) FROM staging.job_postings_flat;
 SELECT COUNT(*) FROM staging.priority_jobs_flat_view;
 SELECT COUNT(*) FROM senior_jobs_flat_temp;
 
+--Subquery and CTEs(Coment Tables Expressions)--
+SELECT *
+FROM (SELECT *
+    FROM job_postings_fact
+    WHERE salary_year_avg IS NOT NULL
+        OR salary_hour_avg IS NOT NULL
+)
+LIMIT 10;
