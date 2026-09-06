@@ -164,6 +164,22 @@ WHERE salary_year_avg IS NOT NULL
 LIMIT 10;
 
 --stage only jobs that are remote before aggregating:
-
+SELECT
+    job_title_short,
+    MEDIAN(salary_year_avg) AS median_salary,
+    (
+        SELECT MEDIAN(salary_year_avg)
+        FROM job_postings_fact
+        WHERE job_work_from_home = TRUE
+    )   AS market_remote_median_salary
+FROM (
+    SELECT
+        job_title_short,
+        salary_year_avg
+    FROM job_postings_fact
+    WHERE job_work_from_home = TRUE
+    ) AS clean_jobs
+GROUP BY job_title_short
+LIMIT 10;
 
 -- KEEP ONLY TITLES WHOS MEDIAN SALARY IS AVOVE THE OVERALL MEDIAN:
