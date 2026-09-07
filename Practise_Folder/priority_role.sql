@@ -14,4 +14,3 @@ SELECT *
     FROM
         staging.priority_roles;
 
-USE jobs_mart;
