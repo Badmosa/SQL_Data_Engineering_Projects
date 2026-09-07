@@ -259,6 +259,15 @@ ORDER BY job_id;
 
 
 
+
+
+
+
+
+
+
+
+
 ------------------------------------------------------
 SELECT *
 FROM range(5) AS SRC(key);
@@ -275,6 +284,7 @@ WHERE NOT EXISTS (
     FROM range(3) AS TGT(key)
     WHERE TGT.key = SRC.key
 );
+
 
 
 

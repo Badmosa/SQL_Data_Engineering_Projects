@@ -38,12 +38,11 @@ VALUES
     (2, 'Senoir Data Engineer'),
     (3, 'Senior Software Engineer');
 
+SELECT *
+FROM staging.preferred_role;--
 
 SELECT *
 FROM staging.priority_role;
-
-ALTER TABLE staging.preferred_role
-ADD COLUMN preferred_role BOOLEAN;
 
 ALTER TABLE staging.preferred_role
 ADD COLUMN preferred_role BOOLEAN;
@@ -81,4 +80,3 @@ FROM staging.priority_role;
 
 SELECT *
 FROM staging.priority_role;
-
