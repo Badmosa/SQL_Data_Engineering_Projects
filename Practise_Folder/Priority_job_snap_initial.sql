@@ -1,4 +1,3 @@
--- SQLBook: Code
 SHOW TABLES FROM staging;
 
 ALTER TABLE main.priority_jobs_snapshot
@@ -32,7 +31,7 @@ SELECT
     cd.name AS company_name,
     jpf.job_posted_date,
     jpf.salary_year_avg,
-    r.priority_lvl,
+    r.prority_lvl,
     CURRENT_TIMESTAMP
 FROM data_jobs.job_postings_fact AS jpf
 LEFT JOIN data_jobs.company_dim AS cd
@@ -48,4 +47,5 @@ SELECT
 FROM main.priority_jobs_snapshot
 GROUP BY job_title_short
 ORDER BY job_count DESC;
+
 
