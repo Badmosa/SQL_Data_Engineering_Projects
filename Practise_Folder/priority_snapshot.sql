@@ -104,8 +104,3 @@ GROUP BY job_title_short
 ORDER BY job_count DESC;
 
 
----
-DESCRIBE SRC_priority_jobs;
-
-ALTER TABLE SRC_priority_jobs
-RENAME COLUMN CURRENT_TIMESTAMP TO updated_at;
