@@ -39,3 +39,21 @@ FROM job_postings_fact
 ORDER BY RANDOM()
 LIMIT 20;
 
+-- coditliopnal aggeregation--
+SELECT
+    job_title_short,
+    COUNT(*) AS total_postings,
+    MEDIAN(
+        CASE 
+            WHEN salary_yaer_avg < 100_000 THEN salary_year_avg
+            END 
+    ) AS median_salary,
+    MEDIAN(
+        CASE 
+            WHEN salary_yaer_avg >= 100_000 THEN salary_year_avg
+            END 
+     ) AS median_high_salary
+FROM job_postings_fact
+WHERE salary_year_avg IS NOT NULL
+LIMIT 10;
+
