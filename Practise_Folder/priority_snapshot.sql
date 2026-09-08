@@ -108,4 +108,4 @@ ORDER BY job_count DESC;
 DESCRIBE SRC_priority_jobs;
 
 ALTER TABLE SRC_priority_jobs
-RENAME COLUMN prority_lvl TO priority_lvl;
+RENAME COLUMN CURRENT_TIMESTAMP TO updated_at;
