@@ -57,3 +57,27 @@ FROM job_postings_fact
 WHERE salary_year_avg IS NOT NULL
 GROUP BY job_title_short;
 
+--conditional calculation--
+ WITH salaries AS (   
+    SELECT
+        job_title_short,
+        salary_hour_avg,
+        salary_year_avg,
+        CASE 
+            WHEN salary_year_avg IS NOT NULL THEN salary_year_avg
+            WHEN salary_hour_avg IS NOT NULL THEN salary_hour_avg*2000 
+        END AS standardized_salary
+    FROM
+        job_postings_fact
+ )
+
+ SELECT
+    *,
+    CASE
+        WHEN standardized_salary IS NULL THEN  'Missing'
+        WHEN standardized_salary < 75_000 THEN 'Low'
+        WHEN standardized_salary < 150_000 THEN 'Median'
+        ELSE 'High'
+    END AS salary_bucket
+FROM salaries
+LIMIT 10;
