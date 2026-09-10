@@ -36,3 +36,18 @@ SELECT * FROM jobs_2024;
 SELECT * FROM jobs_2023
 EXCEPT
 SELECT * FROM jobs_2024;
+
+--which job postings from 2023 remain after subastracting matching 2024 postings, one-for-one?--
+SELECT * FROM jobs_2023
+EXCEPT ALL 
+SELECT * FROM jobs_2024;
+
+--WHICH JOB POSTINGS APPEAR IN BOTH 2023 AND 2024?--
+SELECT * FROM jobs_2023
+INTERSECT
+SELECT * FROM jobs_2024;
+
+-- what job postings apppear in both years, preserving duplicate counts?--
+SELECT * FROM jobs_2023
+INTERSECT ALL
+SELECT * FROM jobs_2024;
