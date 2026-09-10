@@ -23,8 +23,32 @@ WITH title_lower AS (
 
 --NULL FUNCTION--
 SELECT
+    MEDIAN(NULLIF(salary_year_avg, 0)),
+    MEDIAN(NULLIF(salary_hour_avg, 0))
+FROM
+    job_postings_fact
+WHERE salary_hour_avg IS NOT NULL OR  salary_year_avg  IS NOT NULL
+LIMIT 10;
+
+
+-------------------
+SELECT
     salary_year_avg,
     salary_hour_avg
+FROM
+    job_postings_fact
+WHERE salary_hour_avg IS NOT NULL OR  salary_year_avg  IS NOT NULL
+ORDER BY salary_hour_avg
+LIMIT 10;
+
+
+
+
+--Coalesce--
+SELECT
+    salary_year_avg,
+    salary_hour_avg,
+    COALESCE(salary_year_avg, salary_hour_avg * 2000)
 FROM
     job_postings_fact
 WHERE salary_hour_avg IS NOT NULL OR  salary_year_avg  IS NOT NULL
