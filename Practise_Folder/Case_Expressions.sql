@@ -66,7 +66,7 @@ GROUP BY job_title_short;
         salary_year_avg,
         CASE 
             WHEN salary_year_avg IS NOT NULL THEN salary_year_avg
-            WHEN salary_hour_avg IS NOT NULL THEN salary_hour_avg*2000 
+            WHEN salary_hour_avg IS NOT NULL THEN salary_hour_avg * 2000 
         END AS standardized_salary
     FROM
         job_postings_fact
