@@ -22,3 +22,10 @@ WITH title_lower AS (
 
 
 --NULL FUNCTION--
+SELECT
+    salary_year_avg,
+    salary_hour_avg
+FROM
+    job_postings_fact
+WHERE salary_hour_avg IS NOT NULL OR  salary_year_avg  IS NOT NULL
+LIMIT 10;
