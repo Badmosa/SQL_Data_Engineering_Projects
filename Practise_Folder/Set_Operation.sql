@@ -26,3 +26,13 @@ FROM jobs_2024;
 SELECT * FROM jobs_2023
 UNION
 SELECT * FROM jobs_2024;
+
+-- which job postings appeeared across both years, counting duplicates--
+SELECT * FROM jobs_2023
+UNION ALL
+SELECT * FROM jobs_2024;
+
+-- WHICH JOB POSTIINGS APPEARE IN 2023 BUT NOT IN 2024?
+SELECT * FROM jobs_2023
+EXCEPT
+SELECT * FROM jobs_2024;
