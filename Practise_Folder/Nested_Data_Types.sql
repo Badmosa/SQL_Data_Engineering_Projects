@@ -78,3 +78,23 @@ SELECT
     FROM skills_array_struct;
 
 --MAP/OBJECT/DICTIONARY--
+WITH skill_map AS (
+    SELECT MAP {'skill': 'python', 'type': 'programming'}  AS skill_type
+)
+SELECT
+    skill_type['skill'],
+    skill_type['type']
+FROM
+    skill_map;
+
+--JASON--
+WITH raw_skill AS (
+    SELECT
+        '{"skill":"python", "type":"programmiing"}':: JSON AS skill_json
+)
+SELECT
+    STRUCT_PACK(
+        skill := json_extract_string(skill_json, '$.skill'),
+         type := json_extract_string(skill_json, '$.type')
+    )
+FROM raw_skill;
