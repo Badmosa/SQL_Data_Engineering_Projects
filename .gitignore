@@ -3,3 +3,4 @@
 .env
 *.duckdb
 *.duckdb.wal
+large_file.duckdb
