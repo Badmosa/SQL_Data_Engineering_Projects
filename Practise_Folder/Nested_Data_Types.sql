@@ -171,25 +171,11 @@ GROUP BY skill_type;
 
 
 
--- Step 1: Create all tables for star schema
--- Run this first
+-- Step 0: Load data from Google Cloud Storage
+-- Run this FIRST before any other steps
 
--- Create company_dim table
-CREATE TABLE company_dim (
-    company_id INTEGER PRIMARY KEY,
-    company_name VARCHAR UNIQUE NOT NULL
-);
-
--- Create skills_dim table
-CREATE TABLE skills_dim (
-    skill_id INTEGER PRIMARY KEY,
-    skill VARCHAR UNIQUE NOT NULL
-);
-
--- Create job_postings_fact table (must be created before skills_job_dim)
-CREATE TABLE job_postings_fact (
-    job_id INTEGER PRIMARY KEY,
-    company_id INTEGER,
+-- Create the initial job_postings table
+CREATE TABLE job_postings (
     job_title_short VARCHAR,
     job_title VARCHAR,
     job_location VARCHAR,
@@ -204,17 +190,23 @@ CREATE TABLE job_postings_fact (
     salary_rate VARCHAR,
     salary_year_avg DOUBLE,
     salary_hour_avg DOUBLE,
-    FOREIGN KEY (company_id) REFERENCES company_dim(company_id)
+    company_name VARCHAR,
+    job_skills VARCHAR,
+    job_type_skills VARCHAR
 );
 
--- Create skills_job_dim bridge table (after job_postings_fact exists)
-CREATE TABLE skills_job_dim (
-    skill_id INTEGER,
-    job_id INTEGER,
-    PRIMARY KEY (skill_id, job_id),
-    FOREIGN KEY (skill_id) REFERENCES skills_dim(skill_id),
-    FOREIGN KEY (job_id) REFERENCES job_postings_fact(job_id)
+-- Import data from Google Cloud Storage
+COPY job_postings 
+FROM 'https://storage.googleapis.com/sql_de/job_postings_flat.csv'
+WITH (
+    FORMAT CSV,
+    HEADER true,
+    DELIMITER ','
 );
 
--- Verify tables were created
-SHOW TABLES;
+-- Verify the data was imported correctly
+SELECT COUNT(*) as total_records FROM job_postings;
+SELECT * FROM job_postings LIMIT 5;
+
+-- Check the structure
+DESCRIBE job_postings;
