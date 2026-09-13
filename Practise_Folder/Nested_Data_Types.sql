@@ -171,42 +171,38 @@ GROUP BY skill_type;
 
 
 
--- Step 0: Load data from Google Cloud Storage
--- Run this FIRST before any other steps
+-- Step 6: Verify star schema
+-- Run this after Step 5
 
--- Create the initial job_postings table
-CREATE TABLE job_postings (
-    job_title_short VARCHAR,
-    job_title VARCHAR,
-    job_location VARCHAR,
-    job_via VARCHAR,
-    job_schedule_type VARCHAR,
-    job_work_from_home BOOLEAN,
-    search_location VARCHAR,
-    job_posted_date TIMESTAMP,
-    job_no_degree_mention BOOLEAN,
-    job_health_insurance BOOLEAN,
-    job_country VARCHAR,
-    salary_rate VARCHAR,
-    salary_year_avg DOUBLE,
-    salary_hour_avg DOUBLE,
-    company_name VARCHAR,
-    job_skills VARCHAR,
-    job_type_skills VARCHAR
-);
+-- Check record counts for all tables
+SELECT 'job_postings_fact' as table_name, COUNT(*) as record_count FROM job_postings_fact
+UNION ALL
+SELECT 'company_dim', COUNT(*) FROM company_dim
+UNION ALL
+SELECT 'skills_dim', COUNT(*) FROM skills_dim
+UNION ALL
+SELECT 'skills_job_dim', COUNT(*) FROM skills_job_dim;
 
--- Import data from Google Cloud Storage
-COPY job_postings 
-FROM 'https://storage.googleapis.com/sql_de/job_postings_flat.csv'
-WITH (
-    FORMAT CSV,
-    HEADER true,
-    DELIMITER ','
-);
+-- Sample data from each table
+SELECT 'job_postings_fact sample:' as info;
+SELECT * FROM job_postings_fact LIMIT 3;
 
--- Verify the data was imported correctly
-SELECT COUNT(*) as total_records FROM job_postings;
-SELECT * FROM job_postings LIMIT 5;
+SELECT 'company_dim sample:' as info;
+SELECT * FROM company_dim LIMIT 3;
 
--- Check the structure
-DESCRIBE job_postings;
+SELECT 'skills_dim sample:' as info;
+SELECT * FROM skills_dim LIMIT 3;
+
+SELECT 'skills_job_dim sample:' as info;
+SELECT * FROM skills_job_dim LIMIT 3;
+
+-- Test a join query to verify relationships work
+SELECT 
+    jpf.job_title,
+    cd.company_name,
+    sd.skill
+FROM job_postings_fact jpf
+JOIN company_dim cd ON jpf.company_id = cd.company_id
+JOIN skills_job_dim sjd ON jpf.job_id = sjd.job_id
+JOIN skills_dim sd ON sjd.skill_id = sd.skill_id
+LIMIT 5;
