@@ -168,3 +168,19 @@ SELECT
     MEDIAN(salary_year_avg) AS median_salary
 FROM flat_skills
 GROUP BY skill_type;
+
+
+
+INSERT INTO company_dim (company_id, company_name)
+SELECT 
+    ROW_NUMBER() OVER (ORDER BY company_name) as company_id,
+    company_name
+FROM (
+    SELECT DISTINCT company_name 
+    FROM job_postings 
+    WHERE company_name IS NOT NULL
+);
+
+-- Check company_dim population
+SELECT COUNT(*) as company_count FROM company_dim;
+SELECT * FROM company_dim LIMIT 5;
