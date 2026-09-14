@@ -158,3 +158,4 @@ FROM
 WHERE salary_year_avg IS NOT NULL
 ORDER BY company_id, job_posted_date
 LIMIT 60;
+
