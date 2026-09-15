@@ -48,7 +48,7 @@ FROM read_csv('https://storage.googleapis.com/sql_de/skills_job_dim.csv',
     AUTO_DETECT=true,
     HEADER=true);
 
--- Verify data was loaded correctly--
+-- Verifying if data was loaded correctly--
 SELECT 'Company Dimension' AS table_name, COUNT(*) as record_count FROM company_dim
 UNION ALL
 SELECT 'Skills Dimension', COUNT(*) FROM skills_dim
@@ -57,7 +57,7 @@ SELECT 'Job Postings Fact', COUNT(*) FROM job_postings_fact
 UNION ALL
 SELECT 'Skills Job Bridge', COUNT(*) FROM skills_job_dim;
 
-
+--Verifications--
 SELECT '=== Company Dimention Sample ===' AS info;
 SELECT *
 FROM company_dim
