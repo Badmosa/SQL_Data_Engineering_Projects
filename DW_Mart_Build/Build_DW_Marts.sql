@@ -1,4 +1,6 @@
---duckdb dw_DW_marts.duckdb -c "
+--duckdb dw_marts.duckdb -c ".read Build_DW_Marts.sql"
+
+
 --create star schema tables--
 .read DW_Tables.sql
 

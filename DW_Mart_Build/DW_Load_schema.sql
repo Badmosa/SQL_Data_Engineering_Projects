@@ -59,9 +59,27 @@ SELECT 'Skills Job Bridge', COUNT(*) FROM skills_job_dim;
 
 
 SELECT '=== Company Dimention Sample ===' AS info;
-SELECT company_id, name 
+SELECT *
 FROM company_dim
 LIMIT 5;
+
+SELECT '=== Company Dimention Sample ===' AS info;
+SELECT * 
+FROM skills_dim
+LIMIT 5;
+
+SELECT '=== Company Dimention Sample ===' AS info;
+SELECT * 
+FROM job_postings_fact
+LIMIT 5;
+
+SELECT '=== Company Dimention Sample ===' AS info;
+SELECT * 
+FROM skills_job_dim
+LIMIT 5;
+
+
+
 
 SELECT COUNT(*) FROM company_dim;
 
