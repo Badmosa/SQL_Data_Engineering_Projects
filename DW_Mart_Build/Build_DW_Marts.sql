@@ -1,16 +1,17 @@
 --duckdb dw_marts.duckdb -c ".read Build_DW_Marts.sql"
 
 
---create star schema tables--
+--Data Warehouse: create star schema tables--
 .read DW_Tables.sql
 
---load data from CSV files into tables--
+--Data Warehouse: load data from CSV files into tables--
 .read DW_Load_schema.sql
 
---Create Flat_Marts--
--.read Flat_Marts.sql
+--Mart: Create Flat_Marts--
+.read Flat_Marts.sql
 
-
+--Mart: Create Skills Demand Mart
+.read Skills_Mart.sql
 
 
 
