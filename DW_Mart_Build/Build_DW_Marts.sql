@@ -18,3 +18,6 @@
 
 --Mart: Update Priority Mart--
 .read Create_Priority_Mart.sql
+
+--Duckdb: Database Access Link--Motherduck--
+-- ATTACH 'md:_share/dw_marts/1f6c6935-d6d9-40e5-a7b1-2b71319b8ab1'
