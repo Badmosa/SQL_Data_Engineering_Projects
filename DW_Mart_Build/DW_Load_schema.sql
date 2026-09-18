@@ -1,8 +1,8 @@
 -- --Sampling Data--
--- SELECT *
--- FROM read_csv('http://storage.googleapis.com/sql_de/company_dim.csv',
---     AUTO_DETECT=true)
--- LIMIT 10;
+SELECT *
+FROM read_csv('http://storage.googleapis.com/sql_de/company_dim.csv',
+    AUTO_DETECT=true)
+LIMIT 10;
 
 SELECT '=== Loading company_dim Table ===' AS info;
 
