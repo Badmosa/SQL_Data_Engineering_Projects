@@ -1,11 +1,10 @@
--- SQLBook: Code
--- --Sampling Data--
+-- --Checking Data Info--
 -- SELECT *
 -- FROM read_csv('http://storage.googleapis.com/sql_de/company_dim.csv',
 --     AUTO_DETECT=true)
 -- LIMIT 10;
 
-SELECT '=== Loading company_dim Table ===' AS info;
+-- SELECT '=== Loading company_dim Table ===' AS info;
 
 
 --Loading data from CSV files into star schema tables (Data Warehouse)--
