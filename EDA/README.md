@@ -44,3 +44,34 @@ By querying across these interconnected tables, I extracted insights about skill
 - 📦 Version Control: Git/GitHub for versioned SQL scripts
 
 # 📂 Repository Structure
+![Project 1 Overview](../Images/Repository_Structure.png)
+
+# 🏗 Analysis Overview
+
+## Query Structure
+
+- Top Demanded Skills – Identifies the 10 most in-demand skills for remote data engineer positions
+- Top Paying Skills – Analyzes the 25 highest-paying skills with salary and demand metrics
+- Optimal Skills – Calculates an optimal score using natural log of demand combined with median salary to identify the most valuable skills to learn
+
+## Key Insights
+- 🧠 Core languages: SQL and Python each appear in ~29,000 job postings, making them the most demanded skills
+- ☁️ Cloud platforms: AWS and Azure are critical for modern data engineering roles-
+- 🧱 Infra & tooling: Kubernetes, Docker, and Terraform are associated with premium salaries
+- 🔥 Big data tools: Apache Spark shows strong demand with competitive compensation
+
+# 💻 SQL Skills Demonstrated
+
+## Query Design & Optimization
+
+- Complex Joins: Multi-table INNER JOIN operations across job_postings_fact, skills_job_dim, and skills_dim
+- Aggregations: COUNT(), MEDIAN(), ROUND() for statistical analysis
+- Filtering: Boolean logic with WHERE clauses and multiple conditions (job_title_short, job_work_from_home, salary_year_avg IS NOT NULL)
+- Sorting & Limiting: ORDER BY with DESC and LIMIT for top-N analysis
+
+## Data Analysis Techniques
+- Grouping: GROUP BY for categorical analysis by skill
+- Mathematical Functions: LN() for natural logarithm transformation to normalize demand metrics
+- Calculated Metrics: Derived optimal score combining log-transformed demand with median salary
+- HAVING Clause: Filtering aggregated results (skills with >= 100 postings)
+- NULL Handling: Proper filtering of incomplete records (salary_year_avg IS NOT NULL)
