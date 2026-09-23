@@ -11,7 +11,7 @@ This is a SQL project that analyzes the data engineer job market using real worl
 - ✅ Analytics: Applied aggregations, filtering, and sorting to find top skills by demand, salary, and overall value
 - ✅ Outcomes: Delivered actionable insights on SQL/Python dominance, cloud trends, and salary patterns
 
-### Review These If You Only Have a Few Seconds:
+### Review These If You Only Have a Few:
 - 1_EDA\Top_demanded_skills – demand analysis with multi-table joins
 - 02_top_paying_skills.sql – salary analysis with aggregations
 - 03_optimal_skills.sql – combined demand/salary optimization query
