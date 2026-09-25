@@ -119,3 +119,11 @@ Surrogate Keys: Sequential ID generation using CTEs with self-joins (optional co
 - **Date Functions:** `DATE_TRUNC('month')`, `EXTRACT(quarter)` for temporal dimension creation
 - **String Functions:** `STRING_AGG` for concatenation, `REPLACE` for data cleaning
 - **Boolean Logic:** `CASE WHEN` conversions for aggregating flags (remote, health insurance, no degree)
+
+###  Data Quality & Production Practices
+
+- **Idempotency:** All scripts safely rerunnable without side effects
+- **Data Validation:** Verification queries at each pipeline step to ensure data integrity
+- **Type Safety:** Proper data type definitions (VARCHAR, INTEGER, DOUBLE, BOOLEAN, TIMESTAMP)
+- **Schema Organization:** Separate schemas (flat_mart, skills_mart, priority_mart, company_mart) for logical separation
+- **Error Handling:** Structured script execution with clear error messages and progress reporting
