@@ -93,4 +93,29 @@ Company hiring trends by role, location, and month.
 - **Purpose**: Company hiring trends analysis by role, location, and month.
 **Grain:** company_id + job_title_short_id + location_id + month_start_date. 
 **Key Features:** Bridge tables for many-to-many relationships (company-location, job title hierarchies)
-Note: This mart is optional and can be skipped if not needed
+**Note:** This mart is optional and can be skipped if not needed
+
+## Data Engineering Skills Demonstrated
+
+### ETL Pipeline Development
+- **Extract:** Direct CSV loading from Google Cloud Storage using DuckDB's httpfs extension
+- **Transform:** Data normalization, type conversion (CAST, DATE_TRUNC), and quality filtering
+- **Load:** Idempotent table creation with DROP TABLE IF EXISTS patterns
+-  **Incremental Updates:** MERGE operations for upsert patterns (INSERT, UPDATE, DELETE in single statement)
+Orchestration: Master SQL script (build_dw_marts.sql) for automated pipeline execution
+
+### Dimensional Modeling
+- **Star Schema Design:** Fact table (job_postings_fact) with dimension tables (company_dim, skills_dim)
+- **Bridge Tables:** Many-to-many relationship handling (skills_job_dim, bridge_company_location, bridge_job_title)
+- **Grain Definition:** Proper fact table granularity (skill+month, company+title+location+month)
+- **Additive Measures:** Counts and sums that can be safely re-aggregated at any level
+Surrogate Keys: Sequential ID generation using CTEs with self-joins (optional company_mart build only)
+
+### SQL Advanced Techniques
+
+- **DDL Operations:** `CREATE TABLE`, `DROP` TABLE`, `CREATE SCHEMA` for schema management
+- **DML Operations:** `INSERT INTO ... SELECT` with explicit column mapping from CSV sources
+- **MERGE Operations:** Incremental updates using `MERGE INTO` with `WHEN MATCHED`, `WHEN NOT MATCHED`, and `WHEN NOT MATCHED BY SOURCE` clauses for production-ready upsert patterns
+- **Date Functions:** `DATE_TRUNC('month')`, `EXTRACT(quarter)` for temporal dimension creation
+- **String Functions:** `STRING_AGG` for concatenation, `REPLACE` for data cleaning
+- **Boolean Logic:** `CASE WHEN` conversions for aggregating flags (remote, health insurance, no degree)
