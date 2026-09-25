@@ -76,3 +76,21 @@ Time-series skill demand analysis with additive measures.
 Priority role tracking with incremental updates using MERGE operations.
 
 ![Project 1 Overview](../Images/Priority_Mart.png)
+
+- SQL Files:
+1. 05_create_priority_mart.sql – Initial build of priority roles and jobs snapshot
+2. 06_update_priority_mart.sql – Incremental update using MERGE (upsert pattern)
+- Purpose: Track priority roles and job snapshots with incremental update capabilities
+- Grain: One row per job posting with priority level assignment
+- Key Features: MERGE operations for incremental updates - demonstrates production-ready upsert patterns (INSERT, UPDATE, DELETE in single statement)
+
+## Company Mart (Optional)
+Company hiring trends by role, location, and month.
+
+![Project 1 Overview](../Images/Company_Mart.png)
+
+- **SQL File:** 07_create_company_mart.sql – Builds company hiring trends mart.
+- **Purpose**: Company hiring trends analysis by role, location, and month.
+**Grain:** company_id + job_title_short_id + location_id + month_start_date. 
+**Key Features:** Bridge tables for many-to-many relationships (company-location, job title hierarchies)
+Note: This mart is optional and can be skipped if not needed
